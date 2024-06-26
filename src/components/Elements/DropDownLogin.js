@@ -15,7 +15,7 @@ export const DropDownLogin = ({ setShowDropDown }) => {
       }
     }
     fetchUser();
-  });
+  }); //eslint-disable-next-line
   const navigate = useNavigate();
   function handleLogout() {
     logout();

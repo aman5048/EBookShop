@@ -1,32 +1,34 @@
 export async function getProductList(searchTerm) {
-  const res = await fetch(
+  const response = await fetch(
     `${process.env.REACT_APP_HOST}/444/products?name_like=${
       searchTerm ? searchTerm : ""
     }`
   );
-  if (!res.ok) {
-    throw { message: res.statusText, status: res.status };
+  if (!response.ok) {
+    throw { message: response.statusText, status: response.status }; //esLint-disable-line
   }
-  const data = await res.json();
+  const data = await response.json();
   return data;
 }
 
 export async function getProduct(id) {
-  const res = await fetch(`${process.env.REACT_APP_HOST}/444/products/` + id);
-  if (!res.ok) {
-    throw { message: res.statusText, status: res.status };
+  const response = await fetch(
+    `${process.env.REACT_APP_HOST}/444/products/${id}`
+  );
+  if (!response.ok) {
+    throw { message: response.statusText, status: response.status }; //esLint-disable-line
   }
-  const data = await res.json();
+  const data = await response.json();
   return data;
 }
 
 export async function getFeaturedList() {
-  const res = await fetch(
+  const response = await fetch(
     `${process.env.REACT_APP_HOST}/444/featured_products`
   );
-  if (!res.ok) {
-    throw { message: res.statusText, status: res.status };
+  if (!response.ok) {
+    throw { message: response.statusText, status: response.status }; //esLint-disable-line
   }
-  const data = await res.json();
+  const data = await response.json();
   return data;
 }

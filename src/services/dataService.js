@@ -6,21 +6,19 @@ function getSession() {
 
 export async function getUser() {
   const browserData = getSession();
-  const requestOption = {
+  const requestOptions = {
     method: "GET",
-
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${browserData.token}`,
     },
   };
-
   const response = await fetch(
     `${process.env.REACT_APP_HOST}/600/users/${browserData.cbid}`,
-    requestOption
+    requestOptions
   );
   if (!response.ok) {
-    throw { message: response.statusText, status: response.status };
+    throw { message: response.statusText, status: response.status }; //esLint-disable-line
   }
   const data = await response.json();
   return data;
@@ -28,24 +26,26 @@ export async function getUser() {
 
 export async function getUserOrders() {
   const browserData = getSession();
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${browserData.token}`,
+    },
+  };
   const response = await fetch(
     `${process.env.REACT_APP_HOST}/660/orders?user.id=${browserData.cbid}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${browserData.token}`,
-      },
-    }
+    requestOptions
   );
   if (!response.ok) {
-    throw { message: response.statusText, status: response.status };
+    throw { message: response.statusText, status: response.status }; //esLint-disable-line
   }
   const data = await response.json();
   return data;
 }
 
 export async function createOrders(cartList, total, user) {
+  const browserData = getSession();
   const order = {
     cartList: cartList,
     amount_paid: total,
@@ -56,17 +56,20 @@ export async function createOrders(cartList, total, user) {
       id: user.id,
     },
   };
-  const browserData = getSession();
-  const response = await fetch(`${process.env.REACT_APP_HOST}/660/orders`, {
+  const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${browserData.token}`,
     },
     body: JSON.stringify(order),
-  });
+  };
+  const response = await fetch(
+    `${process.env.REACT_APP_HOST}/660/orders`,
+    requestOptions
+  );
   if (!response.ok) {
-    throw { message: response.statusText, status: response.status };
+    throw { message: response.statusText, status: response.status }; //esLint-disable-line
   }
   const data = await response.json();
   return data;
