@@ -9,7 +9,11 @@ export async function login(authDetail) {
     requestOptions
   );
   if (!response.ok) {
-    throw { message: response.statusText, status: response.status }; //esLint-disable-line
+    const errMessage = {
+      message: response.statusText,
+      status: response.status,
+    };
+    throw errMessage; //esLint-disable-line
   }
   const data = await response.json();
 
@@ -32,7 +36,11 @@ export async function register(authDetail) {
     requestOptions
   );
   if (!response.ok) {
-    throw { message: response.statusText, status: response.status }; //esLint-disable-line
+    const errMessage = {
+      message: response.statusText,
+      status: response.status,
+    };
+    throw errMessage; //esLint-disable-line
   }
   const data = await response.json();
 
